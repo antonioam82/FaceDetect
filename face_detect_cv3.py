@@ -18,8 +18,7 @@ faces = faceCascade.detectMultiScale(
     gray,
     scaleFactor=1.1,
     minNeighbors=5,
-    minSize=(30, 30)
-)
+    minSize=(30, 30))
 
 #NÚMERO DE ROSTROS ENCONTRADOS
 print("Found {0} faces!".format(len(faces)))
@@ -30,7 +29,6 @@ print("RECTANGLES:\n",faces)
 #MARCAMOS LOS ROSTROS CON UN RECTANGULO
 for (x, y, w, h) in faces:
     cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
-    cv2.putText(image,str((x,y,w,h)),(x, y),cv2.FONT_HERSHEY_SIMPLEX,0.4,(255,0,0),1)
 
 #MOSTRAMOS RESULTADO.
 cv2.imshow("Face deteccion", image)
