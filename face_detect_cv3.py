@@ -1,31 +1,37 @@
+#IMPORTAMOS "opencv".
 import cv2
-import sys
 
-# Get user supplied values
-imagePath = sys.argv[1]
+#INTRODUCIMOS RUTA A LA IMAGEN Y EL ARCHIVO "xml".
+imagePath = #<ruta a la imagen fuente>
 cascPath = "haarcascade_frontalface_default.xml"
 
-# Create the haar cascade
+#CARGAMOS CLASIFICADOR.
 faceCascade = cv2.CascadeClassifier(cascPath)
 
-# Read the image
+#LEEMOS IMAGEN
 image = cv2.imread(imagePath)
+#CONVERTIMOS IMAGEN A ESCALA DE GRISES
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-# Detect faces in the image
+#DETECTAMOS ROSTROS EN LA IMAGEN
 faces = faceCascade.detectMultiScale(
     gray,
     scaleFactor=1.1,
     minNeighbors=5,
     minSize=(30, 30)
-    #flags = cv2.CV_HAAR_SCALE_IMAGE
 )
 
+#NÚMERO DE ROSTROS ENCONTRADOS
 print("Found {0} faces!".format(len(faces)))
 
-# Draw a rectangle around the faces
+#MOSTRAMOS CONTENIDO DE "faces":
+print("RECTANGLES:\n",faces)
+
+#MARCAMOS LOS ROSTROS CON UN RECTANGULO
 for (x, y, w, h) in faces:
     cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+    cv2.putText(image,str((x,y,w,h)),(x, y),cv2.FONT_HERSHEY_SIMPLEX,0.4,(255,0,0),1)
 
-cv2.imshow("Faces found", image)
+#MOSTRAMOS RESULTADO.
+cv2.imshow("Face deteccion", image)
 cv2.waitKey(0)
